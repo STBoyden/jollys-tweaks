@@ -29,13 +29,11 @@ func main() {
 		if err != nil {
 			panic(fmt.Sprintf("could not read file at \"%s\": %s", sourceFilePath, err.Error()))
 		}
-		defer src.Close()
 
 		dst, err := os.Create(destinationFilePath)
 		if err != nil {
 			panic(fmt.Sprintf("could not create file at \"%s\":%s", destinationFilePath, err.Error()))
 		}
-		defer dst.Close()
 
 		_, err = io.Copy(dst, src)
 		if err != nil {
@@ -45,6 +43,16 @@ func main() {
 		err = dst.Sync()
 		if err != nil {
 			panic(fmt.Sprintf("could not sync file to disk: %s", err.Error()))
+		}
+
+		err = src.Close()
+		if err != nil {
+			panic(fmt.Sprintf("could not close file at \"%s\":%s", sourceFilePath, err.Error()))
+		}
+
+		err = dst.Close()
+		if err != nil {
+			panic(fmt.Sprintf("could not close file at \"%s\":%s", destinationFilePath, err.Error()))
 		}
 	}
 
