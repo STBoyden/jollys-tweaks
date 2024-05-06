@@ -48,11 +48,6 @@ func main() {
 		}
 	}
 
-	// f, err := os.Create("Jolly's INI Tweaks.zip")
-	// if err != nil {
-	// 	panic(fmt.Sprintf("could not create zip file: %s", err.Error()))
-	// }
-
 	err = archiver.Archive([]string{"staging/Data"}, "Jolly's INI Tweaks.zip")
 	if err != nil {
 		panic(fmt.Sprintf("could not create zip file: %s", err.Error()))
